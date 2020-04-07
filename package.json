@@ -1,13 +1,13 @@
 {
-  "name": "prezentace-webove-bezpecnosti",
-  "version": "1.0.0",
-  "description": "A presentation about web security, interactive. In Czech language. Build with reveal.js & socket.io",
+  "name": "presentations",
+  "version": "1.0.i0",
+  "description": "",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "node app.js"
   },
-  "author": "Adam Hlaváček",
+  "author": "Jakub Šťastný",
   "license": "MIT",
   "dependencies": {
     "express": "^4.16.3",
