@@ -23,9 +23,6 @@ http.listen(PORT, function () {
    console.log("listening at http://%s:%s", host, port)
 });
 
-let clientsNum = 0;
-let passwords = [];
-
 io.on('connection', (socket) => {
   socket.on('role', (role) => {
     console.log(`new ${role} just joined`);
