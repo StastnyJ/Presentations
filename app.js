@@ -10,6 +10,7 @@ app.get('/', function (req, res) {
 });
 
 let PORT = process.env.PORT || 3000 
+let clientsNum = 0;
 
 
 process.argv.forEach((val, index) => {
