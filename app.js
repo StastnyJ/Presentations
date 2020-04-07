@@ -3,13 +3,14 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
-let PORT = 3000;
-
 app.use(express.static('static'));
 
 app.get('/', function (req, res) {
   res.redirect('/prezentace/');
 });
+
+let PORT = process.env.PORT || 3000 
+
 
 process.argv.forEach((val, index) => {
   if (val.startsWith('--port='))
