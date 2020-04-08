@@ -1,54 +1,57 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const http = require("http").Server(app);
+const io = require("socket.io")(http);
 
-app.use(express.static('static'));
+app.use(express.static("static"));
 
-app.get('/', function (req, res) {
-  res.redirect('/presentations/');
-});
-
-let PORT = process.env.PORT || 3000 
+let PORT = process.env.PORT || 3000;
 let clientsNum = 0;
 
+app.get("/", function (req, res) {
+  res.redirect("/presentations/");
+});
+
+app.get("/reset", function (req, res) {
+  clientsNum = 0;
+  res.redirect("/presentations/");
+});
 
 process.argv.forEach((val, index) => {
-  if (val.startsWith('--port='))
-    PORT = parseInt(val.split('=')[1]);
+  if (val.startsWith("--port=")) PORT = parseInt(val.split("=")[1]);
 });
 
 http.listen(PORT, function () {
-   let host = http.address().address
-   let port = http.address().port
+  let host = http.address().address;
+  let port = http.address().port;
 
-   console.log("listening at http://%s:%s", host, port)
+  console.log("listening at http://%s:%s", host, port);
 });
 
-io.on('connection', (socket) => {
-  socket.on('role', (role) => {
+io.on("connection", (socket) => {
+  socket.on("role", (role) => {
     console.log(`new ${role} just joined`);
     switch (role) {
-      case 'host':
-        socket.join('hosts');
-        socket.emit('clientNumberChanged', clientsNum);
-        socket.on("questionsInformation", (info) => io.sockets.in('remotes').emit('questionsInformation', info))
+      case "host":
+        socket.join("hosts");
+        socket.emit("clientNumberChanged", clientsNum);
+        socket.on("questionsInformation", (info) => io.sockets.in("remotes").emit("questionsInformation", info));
         break;
-      case 'client':
-        socket.on('login', () => {
-          clientsNum ++;
-          io.sockets.in('hosts').emit('clientNumberChanged', clientsNum);
+      case "client":
+        socket.on("login", () => {
+          clientsNum++;
+          io.sockets.in("hosts").emit("clientNumberChanged", clientsNum);
         });
-        socket.on('reaction', (reaction) => io.sockets.in('hosts').emit('reaction', reaction));
-        socket.on('question', (question) => io.sockets.in('hosts').emit('question', question));
-        socket.on('removeQuestion', (id) => io.sockets.in('hosts').emit('removeQuestion', id));
+        socket.on("reaction", (reaction) => io.sockets.in("hosts").emit("reaction", reaction));
+        socket.on("question", (question) => io.sockets.in("hosts").emit("question", question));
+        socket.on("removeQuestion", (id) => io.sockets.in("hosts").emit("removeQuestion", id));
         break;
-      case 'rc':
+      case "rc":
         socket.join("remotes");
-        socket.on('move', (move) => io.sockets.in('hosts').emit('move', move));
-        socket.on('showQuestions', (x) => io.sockets.in('hosts').emit('showQuestions', x));
-        socket.on('hideQuestions', (x) => io.sockets.in('hosts').emit('hideQuestions', x));
-        socket.on('removeQuestion', (id) => io.sockets.in('hosts').emit('removeQuestion', id));
+        socket.on("move", (move) => io.sockets.in("hosts").emit("move", move));
+        socket.on("showQuestions", (x) => io.sockets.in("hosts").emit("showQuestions", x));
+        socket.on("hideQuestions", (x) => io.sockets.in("hosts").emit("hideQuestions", x));
+        socket.on("removeQuestion", (id) => io.sockets.in("hosts").emit("removeQuestion", id));
       default:
         break;
     }
