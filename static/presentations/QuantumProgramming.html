@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+
+    <title>Kvantove pocitace - přednáška</title>
+
+    <link href="css/reveal.css" rel="stylesheet" />
+    <link href="css/theme/black.css" rel="stylesheet" />
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link href="lib/css/zenburn.css" rel="stylesheet" />
+    <link href="css/base.css" rel="stylesheet" />
+
+    <!-- Printing and PDF exports -->
+    <script>
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.type = "text/css";
+      link.href = window.location.search.match(/print-pdf/gi) ? "css/print/pdf.css" : "css/print/paper.css";
+      document.getElementsByTagName("head")[0].appendChild(link);
+    </script>
+    <style>
+      img {
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+      }
+      div .latex {
+        color: white;
+        font-size: 20pt;
+        background-color: white;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="reactions"></div>
+    <div id="questions" onclick="showQuestions()">
+      ?<sub id="questionCount">0</sub>
+      <div class="popup">
+        <span class="popuptext" id="questionPopup"></span>
+      </div>
+    </div>
+    <div id="questionsListPanel">
+      <ul id="questionsList"></ul>
+    </div>
+    <img id="logo" src="img/BrnocLogo.png" />
+
+    <!------------------------------------------------BEGIN OF PRESENTATION----------------------------------------------------------->
+
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h2>Programování kvantových počítačů</h2>
+        </section>
+        <section>
+          <a href="http://{ip}:3000/posluchac">http://{ip}:3000/posluchac</a>
+          <div><img alt="Načtěte prosím adresu nahoře" src="img/{qrImage}>" /></div>
+          <div style="margin-top: 5%;">Posluchačů připojeno: <span id="clientsNum">0</span></div>
+        </section>
+        <section>
+          <h3>Kvantový vs klasický bit</h3>
+          <img src="img/qbitStates.png" />
+        </section>
+
+        <section>
+          <section>
+            <h3>Aritmetika klasických bitů</h3>
+          </section>
+          <section>
+            <h3>Aritmetika klasických bitů</h3>
+            <h5>Reprezentace CBitů jako vektorů</h5>
+            <br />
+            Bit roven 0: &#10072;0&#10093; \(\begin{pmatrix}1 \\\ 0 \end{pmatrix}\)
+            <br /><br /><br />
+            Bit roven 1: &#10072;1&#10093; \(\begin{pmatrix}0 \\\ 1 \end{pmatrix}\)
+          </section>
+          <section>
+            <h3>Aritmetika klasických bitů</h3>
+            <h5>Reprezentace dvojice CBitů</h5>
+            <br />
+            <table style="font-size: 20pt;">
+              <tr>
+                <td style="border: none;">
+                  &#10072;00&#10093; \(\begin{pmatrix}1 \\\ 0 \\\ 0 \\\ 0\end{pmatrix}\)
+                </td>
+                <td style="border: none; padding-left: 10vw;">
+                  &#10072;01&#10093; \(\begin{pmatrix}0 \\\ 1 \\\ 0 \\\ 0 \end{pmatrix}\)
+                </td>
+              </tr>
+              <tr>
+                <td style="border: none;">
+                  &#10072;10&#10093; \(\begin{pmatrix}0 \\\ 0 \\\ 1 \\\ 0 \end{pmatrix}\)
+                </td>
+                <td style="border: none; padding-left: 10vw;">
+                  &#10072;11&#10093; \(\begin{pmatrix}0 \\\ 0 \\\ 0 \\\ 1 \end{pmatrix}\)
+                </td>
+              </tr>
+            </table>
+          </section>
+          <section>
+            <h3>Aritmetika klasických bitů</h3>
+            <h5>Operace na jednom bitu</h5>
+            <br />
+            <table style="font-size: 20pt;">
+              <tr>
+                <td style="border: none;">
+                  Identita: \(f(x) = x\)
+                </td>
+                <td style="border: none; border-right: 2px solid white;">
+                  \(\begin{pmatrix}1 & 0 \\\ 0 & 1\end{pmatrix}\times\begin{pmatrix}1 \\\ 0\end{pmatrix} = \begin{pmatrix}1 \\\
+                  0\end{pmatrix}\)
+                </td>
+                <td style="border: none;">
+                  \(\begin{pmatrix}1 & 0 \\\ 0 & 1\end{pmatrix}\times\begin{pmatrix}0 \\\ 1\end{pmatrix} = \begin{pmatrix}0 \\\
+                  1\end{pmatrix}\)
+                </td>
+              </tr>
+              <tr>
+                <td style="border: none;">
+                  Negace: \(f(x) = \lnot x\)
+                </td>
+                <td style="border: none; border-right: 2px solid white;">
+                  \(\begin{pmatrix}0 & 1 \\\ 1 & 0\end{pmatrix}\times\begin{pmatrix}1 \\\ 0\end{pmatrix} = \begin{pmatrix}0 \\\
+                  1\end{pmatrix}\)
+                </td>
+                <td style="border: none;">
+                  \(\begin{pmatrix}0 & 1 \\\ 1 & 0\end{pmatrix}\times\begin{pmatrix}0 \\\ 1\end{pmatrix} = \begin{pmatrix}1 \\\
+                  0\end{pmatrix}\)
+                </td>
+              </tr>
+              <tr>
+                <td style="border: none;">
+                  C0: \(f(x) = 0\)
+                </td>
+                <td style="border: none; border-right: 2px solid white;">
+                  \(\begin{pmatrix}1 & 1 \\\ 0 & 0\end{pmatrix}\times\begin{pmatrix}1 \\\ 0\end{pmatrix} = \begin{pmatrix}1 \\\
+                  0\end{pmatrix}\)
+                </td>
+                <td style="border: none;">
+                  \(\begin{pmatrix}1 & 1 \\\ 0 & 0\end{pmatrix}\times\begin{pmatrix}0 \\\ 1\end{pmatrix} = \begin{pmatrix}1 \\\
+                  0\end{pmatrix}\)
+                </td>
+              </tr>
+              <tr>
+                <td style="border: none;">
+                  C1: \(f(x) = 1\)
+                </td>
+                <td style="border: none; border-right: 2px solid white;">
+                  \(\begin{pmatrix}0 & 0 \\\ 1 & 1\end{pmatrix}\times\begin{pmatrix}1 \\\ 0\end{pmatrix} = \begin{pmatrix}0 \\\
+                  1\end{pmatrix}\)
+                </td>
+                <td style="border: none;">
+                  \(\begin{pmatrix}0 & 0 \\\ 1 & 1\end{pmatrix}\times\begin{pmatrix}0 \\\ 1\end{pmatrix} = \begin{pmatrix}0 \\\
+                  1\end{pmatrix}\)
+                </td>
+              </tr>
+            </table>
+          </section>
+          <section>
+            <h3>Aritmetika klasických bitů</h3>
+            <h5>Operace na 2 bitech</h5>
+            <br />
+            <table style="font-size: 20pt;">
+              <tr>
+                <td style="border: none;">
+                  AND: \(f(x, y) = x \land y\)
+                </td>
+                <td style="border: none; border-right: 2px solid white;">
+                  \(\begin{pmatrix}1 & 1 & 1 & 0 \\\ 0 & 0 & 0 & 1\end{pmatrix}\times\begin{pmatrix}0 \\\ 1 \\\ 0 \\\ 0
+                  \end{pmatrix} = \begin{pmatrix}1 \\\ 0\end{pmatrix}\)
+                </td>
+                <td style="border: none;">
+                  \(\begin{pmatrix}1 & 1 & 1 & 0 \\\ 0 & 0 & 0 & 1\end{pmatrix}\times\begin{pmatrix}0 \\\ 0 \\\ 0 \\\ 1
+                  \end{pmatrix} = \begin{pmatrix}0 \\\ 1\end{pmatrix}\)
+                </td>
+              </tr>
+              <tr>
+                <td style="border: none;">
+                  CNOT: \(f(x,y) = (x \cdot \lnot y) + (\lnot x \cdot y)\)
+                </td>
+                <td style="border: none; border-right: 2px solid white;">
+                  \(\begin{pmatrix}1 & 0 & 0 & 0 \\\ 0 & 1 & 0 & 0 \\\ 0 & 0 & 0 & 1 \\\ 0 & 0 & 1 &
+                  0\end{pmatrix}\times\begin{pmatrix}0 \\\ 1 \\\ 0 \\\ 0\end{pmatrix} = \begin{pmatrix}0 \\\ 1 \\\ 0 \\\
+                  0\end{pmatrix}\)
+                </td>
+                <td style="border: none;">
+                  \(\begin{pmatrix}1 & 0 & 0 & 0 \\\ 0 & 1 & 0 & 0 \\\ 0 & 0 & 0 & 1 \\\ 0 & 0 & 1 &
+                  0\end{pmatrix}\times\begin{pmatrix}0 \\\ 0 \\\ 1 \\\ 0\end{pmatrix} = \begin{pmatrix}0 \\\ 0 \\\ 0 \\\
+                  1\end{pmatrix}\)
+                </td>
+              </tr>
+            </table>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3>
+              Aritmetika kvantových bitů
+            </h3>
+          </section>
+          <section>
+            <h3>
+              Aritmetika kvantových bitů
+            </h3>
+            <h5>Reprezentace Qbitu</h5>
+            <br />
+            Reprezentujeme opět jako vektor dvou čísel
+            <br /><br />
+            $$ \begin{pmatrix}a \\\ b \end{pmatrix}; a,b \in \mathbb{C} $$
+            <br />
+            pro který platí, že $$ |a|^2 + |b|^2 = 1 $$
+          </section>
+          <section>
+            <h3>
+              Aritmetika kvantových bitů
+            </h3>
+            <h5>Reprezentace dvojice Qbitu</h5>
+            <br />
+            $$ \begin{pmatrix}a \\\ b \\\ c \\\ d \end{pmatrix}\\~\\ a,b, c, d \in \mathbb{C} $$ $$ |a|^2 + |b|^2 + |c|^2 +
+            |d|^2 = 1 $$
+          </section>
+          <section>
+            <h3>
+              Aritmetika kvantových bitů
+            </h3>
+            <h5>Operace na kvantových bitech</h5>
+            <br />
+            <table>
+              <tr>
+                <td style="border: none;">
+                  Bit flip:
+                </td>
+                <td style="border: none;">
+                  \(\begin{pmatrix}0 & 1 \\\ 1 & 0\end{pmatrix}\times\begin{pmatrix}a \\\ b\end{pmatrix} = \begin{pmatrix}b \\\
+                  a\end{pmatrix}\)
+                </td>
+              </tr>
+            </table>
+            <br />
+            <ul>
+              <li>
+                Všechny Qbitové operace \(f(x)\) musí být reverzivilní \(\forall y \exists! x: f(x) = y\)
+              </li>
+              <li>
+                Všechny Qbitové operace jsou vlastní inverzí \(\forall x: f^2(x) = x\)
+              </li>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3>
+              Některé důležité operace
+            </h3>
+          </section>
+          <section>
+            <h3>
+              Některé důležité operace
+            </h3>
+            <h5>Hadamard gate (H)</h5>
+            <br />
+            <table style="font-size: 20pt;">
+              <tr>
+                <td style="border: none; border-right: 2px solid white;">
+                  \(\begin{pmatrix}\frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2} \\\ \frac{\sqrt{2}}{2} &
+                  -\frac{\sqrt{2}}{2}\end{pmatrix}\times\begin{pmatrix}1 \\\ 0\end{pmatrix} = \begin{pmatrix}\frac{\sqrt{2}}{2}
+                  \\\ \frac{\sqrt{2}}{2}\end{pmatrix}\)
+                </td>
+                <td style="border: none;">
+                  \(\begin{pmatrix}\frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2} \\\ \frac{\sqrt{2}}{2} &
+                  -\frac{\sqrt{2}}{2}\end{pmatrix}\times\begin{pmatrix}0 \\\ 1\end{pmatrix} = \begin{pmatrix}\frac{\sqrt{2}}{2}
+                  \\\ -\frac{\sqrt{2}}{2}\end{pmatrix}\)
+                </td>
+              </tr>
+              <tr>
+                <td style="border: none; border-right: 2px solid white;">
+                  \(\begin{pmatrix}\frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2} \\\ \frac{\sqrt{2}}{2} &
+                  -\frac{\sqrt{2}}{2}\end{pmatrix}\times\begin{pmatrix}\frac{\sqrt{2}}{2} \\\ \frac{\sqrt{2}}{2}\end{pmatrix} =
+                  \begin{pmatrix}1 \\\ 0\end{pmatrix}\)
+                </td>
+                <td style="border: none;">
+                  \(\begin{pmatrix}\frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2} \\\ \frac{\sqrt{2}}{2} &
+                  -\frac{\sqrt{2}}{2}\end{pmatrix}\times\begin{pmatrix}\frac{\sqrt{2}}{2} \\\ -\frac{\sqrt{2}}{2}\end{pmatrix} =
+                  \begin{pmatrix}0 \\\ 1\end{pmatrix}\)
+                </td>
+              </tr>
+            </table>
+          </section>
+          <section>
+            <h3>
+              Některé důležité operace
+            </h3>
+            <h5>Bit flip (X)</h5>
+            <br />
+            $$\begin{pmatrix}0 & 1 \\\ 1 & 0\end{pmatrix}\times\begin{pmatrix}a \\\ b\end{pmatrix} = \begin{pmatrix}b \\\
+            a\end{pmatrix}$$
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3>Vizualizace kvantových operací</h3>
+            <h5>Stavový kruh</h5>
+          </section>
+          <section data-transition="slide-in none-out">
+            <h3>Vizualizace kvantových operací</h3>
+            <h5>Stavový kruh</h5>
+            <img src="img/XHStateCircle.png" />
+          </section>
+          <section data-transition="none-in slide-out">
+            <h3>Vizualizace kvantových operací</h3>
+            <h5>Stavový kruh</h5>
+            <img src="img/ExampleCircuitVis.png" />
+          </section>
+        </section>
+        <section>
+          <h3>Nereverzibilní operace</h3>
+          <br />
+          <img src="img/QuantumIrreversibleOperations.png" />
+        </section>
+        <section>
+          <section>
+            <h3>Deutsch Oracle</h3>
+          </section>
+          <section>
+            <h3>
+              Deutsch Oracle
+            </h3>
+            Dostaneme funkci \(f(x): {0; 1} \rightarrow {0; 1}\) potřebujeme zjistit, jak zda je konstantní nebo nebo proměnná
+          </section>
+          <section>
+            <h3>
+              Deutsch Oracle
+            </h3>
+            <table>
+              <tr>
+                <td style="border: none;">
+                  C0
+                </td>
+                <td style="border: none;">
+                  C1
+                </td>
+              </tr>
+              <tr>
+                <td style="border: none;">
+                  <img src="img/DeutschOraculumC0.png" />
+                </td>
+                <td style="border: none;">
+                  <img src="img/DeutschOraculumC1.png" />
+                </td>
+              </tr>
+              <tr>
+                <td style="border: none;">
+                  Identita
+                </td>
+                <td style="border: none;">
+                  Negace
+                </td>
+              </tr>
+              <tr>
+                <td style="border: none;">
+                  <img src="img/DeutschOraculumIdentity.png" />
+                </td>
+                <td style="border: none;">
+                  <img src="img/DeutschOraculumNegation.png" />
+                </td>
+              </tr>
+            </table>
+          </section>
+          <section>
+            <h3>Deutsch oracle</h3>
+            <br />
+            <img src="img/DeutschOraculumSolution.png" />
+            <ul>
+              <li>
+                Pokud je \(f(x)\) konstantní, výsledek bude &#10072;11&#10093;
+              </li>
+              <li>
+                Pokud \(f(x)\) není konstantní, výsledek bude &#10072;01&#10093;
+              </li>
+            </ul>
+          </section>
+        </section>
+      </div>
+    </div>
+
+    <!--------------------------------------------------END OF PRESENTATION----------------------------------------------------------->
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default"></script>
+    <script src="js/reveal.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="base.js"></script>
+
+    <script>
+      Reveal.initialize({
+        dependencies: [
+          {
+            src: "plugin/markdown/marked.js",
+          },
+          {
+            src: "plugin/markdown/markdown.js",
+          },
+          {
+            src: "plugin/notes/notes.js",
+            async: true,
+          },
+          {
+            src: "plugin/highlight/highlight.js",
+            async: true,
+            callback: function () {
+              hljs.initHighlightingOnLoad();
+            },
+          },
+        ],
+      });
+      Reveal.addEventListener("fragmentshown", function (event) {
+        if (event.fragment.classList.contains("cross")) {
+          event.fragment.style.textDecoration = "line-through";
+        }
+      });
+      Reveal.addEventListener("fragmenthidden", function (event) {
+        if (event.fragment.classList.contains("cross")) {
+          event.fragment.style.textDecoration = "none";
+        }
+      });
+    </script>
+  </body>
+</html>

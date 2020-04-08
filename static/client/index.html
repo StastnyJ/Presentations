@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>UI Prezentace</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css?family=Titan+One" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+  </head>
+
+  <body>
+    <div class="page" id="pageLoading">
+      <p id="pLoadingStatus">Connectiong to the presentation</p>
+    </div>
+
+    <div class="page" id="pageEnter">
+      <p style="color: green;">Connected to the presentation</p>
+      <button id="btnEnter">Start application</button>
+    </div>
+
+    <div class="page" id="pageUI">
+      <div id="askQuestionPanel">
+        <input type="text" id="txtAskQuestion" placeholder="ask question" />
+        <button onclick="askQuestion()">✓</button>
+      </div>
+      <div id="myQuestionsPanel">
+        <table id="questionTable"></table>
+      </div>
+      <div id="reactionPanel">
+        <span class="reactionBtn">❤️</span>
+        <span class="reactionBtn">👍</span>
+        <span class="reactionBtn">😯</span>
+        <span class="reactionBtn">👎</span>
+        <span class="reactionBtn">😠</span>
+      </div>
+    </div>
+
+    <div class="page" id="pageDisconnected" style="color: red;">
+      Connection to the presentation lost
+    </div>
+  </body>
+
+  <script src="../prezentace/lib/js/jquery.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/cookies.js"></script>
+  <script src="js/index.js"></script>
+</html>

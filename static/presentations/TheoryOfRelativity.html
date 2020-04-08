@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+
+    <title>Paradoxy teorie relativity - přednáška</title>
+
+    <link href="css/reveal.css" rel="stylesheet" />
+    <link href="css/theme/black.css" rel="stylesheet" />
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link href="lib/css/zenburn.css" rel="stylesheet" />
+    <link href="css/base.css" rel="stylesheet" />
+
+    <!-- Printing and PDF exports -->
+    <script>
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.type = "text/css";
+      link.href = window.location.search.match(/print-pdf/gi) ? "css/print/pdf.css" : "css/print/paper.css";
+      document.getElementsByTagName("head")[0].appendChild(link);
+    </script>
+    <style>
+      img {
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+      }
+      div .latex {
+        color: white;
+        font-size: 20pt;
+        background-color: white;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="reactions"></div>
+    <div id="questions" onclick="showQuestions()">
+      ?<sub id="questionCount">0</sub>
+      <div class="popup">
+        <span class="popuptext" id="questionPopup"></span>
+      </div>
+    </div>
+    <div id="questionsListPanel">
+      <ul id="questionsList"></ul>
+    </div>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h2>Paradoxy moderní fyziky</h2>
+          <h4>Speciální teorie relativity</h4>
+        </section>
+        <section>
+          <a href="http://192.168.43.196:3000/posluchac">http://192.168.43.196:3000/posluchac</a>
+          <div><img alt="Načtěte prosím adresu nahoře" src="img/qr-ui.png" /></div>
+          <div style="margin-top: 5%;">Posluchačů připojeno: <span id="clientsNum">0</span></div>
+        </section>
+
+        <section>
+          <section>
+            <h3>Úvod do speciální teorie relativity</h3>
+          </section>
+          <section>
+            <h3>Postuláty speciální teorie relativity</h3>
+            <br />
+            <ol>
+              <li class="fragment">
+                Žádným fyzikálním pokusem v rámci inerciální soustavy nelze rozhodnout, zda je soustava v klidu či pohybu
+                rovnoměrném přímočarém.
+              </li>
+              <br />
+              <li class="fragment">Rychlost světla je absolutní</li>
+            </ol>
+          </section>
+          <section>
+            <div style="height: 50vh;">
+              <img src="./img/absolute_speed_of_light.png" />
+            </div>
+          </section>
+          <section>
+            <div>
+              <img style="width: 30%;" class="fragment shrink" src="./img/rocket-left.png" data-fragment-index="1" />
+              <img
+                class="fragment shrink"
+                style="width: 20%; margin: 8%; margin-bottom: 0;"
+                data-fragment-index="1"
+                src="./img/beobachter.png"
+              />
+              <img style="width: 30%;" class="fragment grow" data-fragment-index="1" src="./img/rocket-right.png" />
+            </div>
+            <div class="fragment fade-out" data-fragment-index="1">
+              <img style="width: 30%;" src="./img/light-speed-left.png" />
+              <span style="margin: 18%;">&nbsp;</span>
+              <img style="width: 30%;" src="./img/light-speed-right.png" />
+            </div>
+            <div class="fragment fade-in" style="top: -10vh; position: relative;" data-fragment-index="1">
+              <img style="width: 30%;" src="./img/light-speed-left.png" />
+              <img style="width: 30%;" src="./img/light-speed-left.png" />
+              <span style="margin: 18%;">&nbsp;</span>
+            </div>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>Co z toho vyplývá</h3>
+          </section>
+          <section data-transition="slide-in none-out">
+            <h3>Relativita současnosti</h3>
+            <div style="height: 50vh;">
+              <img src="img/relativity_of_presence_train.png" />
+            </div>
+          </section>
+          <section data-transition="none-in slide-out">
+            <h3>Relativita současnosti</h3>
+            <div style="height: 50vh;">
+              <img src="img/relativity_of_presence_station.png" />
+            </div>
+          </section>
+          <section data-transition="slide-in none-out">
+            <h3>Dilatace času</h3>
+            <div style="height: 50vh;">
+              <p style="float: left; margin-top: 20vh;">
+                $$ { t = \frac{t_0}{\sqrt{1 - \frac{v^2}{c^2}}}} $$
+              </p>
+              <img src="img/time_dilatation_train.png" />
+            </div>
+          </section>
+          <section data-transition="none-in slide-out">
+            <h3>Dilatace času</h3>
+            <div style="height: 50vh;">
+              <p style="float: left; margin-top: 20vh;">
+                $$ { t = \frac{t_0}{\sqrt{1 - \frac{v^2}{c^2}}}} $$
+              </p>
+              <img src="img/time_dilatation_station.png" />
+            </div>
+          </section>
+          <section>
+            <h3>Kontrakce délky</h3>
+            <br />
+            <br />
+            <p>
+              $$ { l = l_0 \cdot \sqrt{1 - \frac{v^2}{c^2}}} $$
+            </p>
+          </section>
+          <section>
+            <h3>Dilatace hmotnosti</h3>
+            <br />
+            <br />
+            <p>
+              $$ { m = \frac{m_0}{\sqrt{1 - \frac{v^2}{c^2}}}} $$
+            </p>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>"Paradoxy" plynoucí z předchozích dějů</h3>
+          </section>
+          <section>
+            <h3>Paradox dvojčat</h3>
+            <img style="height: 50vh;" src="img/twins_paradox.png" />
+          </section>
+          <section data-transition="slide-in none-out">
+            <h3>Paradox garáže</h3>
+            <div style="height: 50vh;">
+              <img src="img/garage_paradox0.png" />
+            </div>
+          </section>
+          <section data-transition="none-in slide-out">
+            <h3>Paradox garáže</h3>
+            <div style="height: 50vh;">
+              <img src="img/garage_paradox1.png" />
+            </div>
+          </section>
+          <section data-transition="slide-in none-out">
+            <h3>Rytířský turnaj</h3>
+            <img style="height: 50vh;" src="img/knights_princess_start.png" />
+          </section>
+          <section data-transition="none">
+            <h3>Rytířský turnaj</h3>
+            <img style="height: 50vh;" src="img/knights_princess_end.png" />
+          </section>
+          <section data-transition="none">
+            <h3>Rytířský turnaj</h3>
+            <img style="height: 50vh;" src="img/knights_princess_start.png" />
+          </section>
+          <section data-transition="none">
+            <h3>Rytířský turnaj</h3>
+            <img style="height: 50vh;" src="img/knights_red_start.png" />
+          </section>
+          <section data-transition="none">
+            <h3>Rytířský turnaj</h3>
+            <img style="height: 50vh;" src="img/knights_red_end.png" />
+          </section>
+          <section data-transition="none">
+            <h3>Rytířský turnaj</h3>
+            <img style="height: 50vh;" src="img/knights_princess_start.png" />
+          </section>
+          <section data-transition="none">
+            <h3>Rytířský turnaj</h3>
+            <img style="height: 50vh;" src="img/knights_blue_start.png" />
+          </section>
+          <section data-transition="none-in slide-out">
+            <h3>Rytířský turnaj</h3>
+            <img style="height: 50vh;" src="img/knights_blue_end.png" />
+          </section>
+          <section>
+            <h3>Chodec a kanál</h3>
+            <div style="height: 50vh;">
+              <img src="img/drainParadox.png" />
+            </div>
+          </section>
+        </section>
+      </div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default"></script>
+    <script src="js/reveal.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="base.js"></script>
+
+    <script>
+      // More info about config & dependencies:
+      // - https://github.com/hakimel/reveal.js#configuration
+      // - https://github.com/hakimel/reveal.js#dependencies
+      Reveal.initialize({
+        dependencies: [
+          {
+            src: "plugin/markdown/marked.js",
+          },
+          {
+            src: "plugin/markdown/markdown.js",
+          },
+          {
+            src: "plugin/notes/notes.js",
+            async: true,
+          },
+          {
+            src: "plugin/highlight/highlight.js",
+            async: true,
+            callback: function () {
+              hljs.initHighlightingOnLoad();
+            },
+          },
+        ],
+      });
+    </script>
+  </body>
+</html>

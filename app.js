@@ -6,7 +6,7 @@ const io = require('socket.io')(http);
 app.use(express.static('static'));
 
 app.get('/', function (req, res) {
-  res.redirect('/prezentace/');
+  res.redirect('/presentations/');
 });
 
 let PORT = process.env.PORT || 3000 

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+
+    <title>{Title} - přednáška</title>
+
+    <link href="css/reveal.css" rel="stylesheet" />
+    <link href="css/theme/black.css" rel="stylesheet" />
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link href="lib/css/zenburn.css" rel="stylesheet" />
+    <link href="css/base.css" rel="stylesheet" />
+
+    <!-- Printing and PDF exports -->
+    <script>
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.type = "text/css";
+      link.href = window.location.search.match(/print-pdf/gi) ? "css/print/pdf.css" : "css/print/paper.css";
+      document.getElementsByTagName("head")[0].appendChild(link);
+    </script>
+    <style>
+      img {
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+      }
+      div .latex {
+        color: white;
+        font-size: 20pt;
+        background-color: white;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="reactions"></div>
+    <div id="questions" onclick="showQuestions()">
+      ?<sub id="questionCount">0</sub>
+      <div class="popup">
+        <span class="popuptext" id="questionPopup"></span>
+      </div>
+    </div>
+    <div id="questionsListPanel">
+      <ul id="questionsList"></ul>
+    </div>
+
+    <!------------------------------------------------BEGIN OF PRESENTATION----------------------------------------------------------->
+
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h2>{Title}</h2>
+          <h4>{Subtitle}</h4>
+        </section>
+        <section>
+          <a href="http://{ip}:3000/posluchac">http://{ip}:3000/posluchac</a>
+          <div><img alt="Načtěte prosím adresu nahoře" src="img/{qrImage}>" /></div>
+          <div style="margin-top: 5%;">Posluchačů připojeno: <span id="clientsNum">0</span></div>
+        </section>
+      </div>
+    </div>
+
+    <!--------------------------------------------------END OF PRESENTATION----------------------------------------------------------->
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default"></script>
+    <script src="js/reveal.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="base.js"></script>
+
+    <script>
+      Reveal.initialize({
+        dependencies: [
+          {
+            src: "plugin/markdown/marked.js",
+          },
+          {
+            src: "plugin/markdown/markdown.js",
+          },
+          {
+            src: "plugin/notes/notes.js",
+            async: true,
+          },
+          {
+            src: "plugin/highlight/highlight.js",
+            async: true,
+            callback: function () {
+              hljs.initHighlightingOnLoad();
+            },
+          },
+        ],
+      });
+    </script>
+  </body>
+</html>
