@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "npm run-script build --prefix static/remote/source; cp -r static/remote/source/build/* static/remote/; node app.js"
   },
   "author": "Jakub Šťastný",
   "license": "MIT",

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>RC Prezentace</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="index.css" />
+  <link href="https://fonts.googleapis.com/css?family=Titan+One" rel="stylesheet">
+</head>
+
+<body>
+  <div class="page" id="pageLoading" style="visibility: visible">
+    <p id='pLoadingStatus'>Nahrávám aplikaci</p>
+  </div>
+  <div class="page" id="pageUI">
+    <div id="timePanel">
+        00:00:00
+    </div>
+    <span class='arrow' id='moveUp'>⬆️</span>
+    <div><span class='arrow' id='moveLeft'>⬅️</span><span class='arrow' id='moveRight'>➡️</span></div>
+    <span class='arrow' id='moveDown'>⬇️</span>
+    <br>
+    <br>
+    <button class='questions' id='showQuestions'>Show questions</button>
+  </div>
+  <div class="page" id="pageQuestions">
+    <table id="questionsTable">
+    </table>
+    <button class='questions' id='hideQuestions'>Hide questions</button>
+  </div>
+  <div class="page" id="pageDisconnected">
+    Spojení s prezentací ztraceno
+  </div>
+</body>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="index.js"></script>
+
+</html>
