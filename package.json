@@ -4,13 +4,19 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "npm run-script build --prefix static/remote/source; cp -r static/remote/source/build/* static/remote/; npm run-script build --prefix static/client/source; cp -r static/client/source/build/* static/client/; node app.js"
+    "start": "npm run-script build --prefix static/remote/source; cp -r static/remote/source/build/* static/remote/; npm run-script build --prefix static/client/source; cp -r static/client/source/build/* static/client/; npm run-script build --prefix static/remoteTablet/source; cp -r static/remoteTablet/source/build/* static/remoteTablet/;  node app.js"
   },
   "author": "Jakub Šťastný",
   "license": "MIT",
   "dependencies": {
+    "@types/jest": "^26.0.13",
+    "@types/node": "^14.6.4",
+    "@types/react": "^16.9.49",
+    "@types/react-dom": "^16.9.8",
     "express": "^4.16.3",
     "mdbootstrap": "^4.15.0",
-    "socket.io": "^2.1.0"
+    "react-canvas-draw": "^1.1.1",
+    "socket.io": "^2.1.0",
+    "typescript": "^4.0.2"
   }
 }
