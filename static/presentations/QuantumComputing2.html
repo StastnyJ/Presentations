@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+
+    <title>Quantum computing</title>
+
+    <link href="css/reveal.css" rel="stylesheet" />
+    <link href="css/theme/black.css" rel="stylesheet" />
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link href="lib/css/zenburn.css" rel="stylesheet" />
+    <link href="css/base.css" rel="stylesheet" />
+
+    <!-- Printing and PDF exports -->
+    <script>
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.type = "text/css";
+      link.href = window.location.search.match(/print-pdf/gi) ? "css/print/pdf.css" : "css/print/paper.css";
+      document.getElementsByTagName("head")[0].appendChild(link);
+    </script>
+    <style>
+      img {
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+      }
+      div .latex {
+        color: white;
+        font-size: 20pt;
+        background-color: white;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="reactions"></div>
+    <div id="questions" onclick="showQuestions()">
+      ?<sub id="questionCount">0</sub>
+      <div class="popup">
+        <span class="popuptext" id="questionPopup"></span>
+      </div>
+    </div>
+    <div id="questionsListPanel">
+      <ul id="questionsList"></ul>
+    </div>
+
+    <!------------------------------------------------BEGIN OF PRESENTATION----------------------------------------------------------->
+
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h2>Quantum computing</h2>
+        </section>
+        <section>
+          <a href="https://stastnyj-presentations.herokuapp.com/client/">
+            https://stastnyj-presentations.herokuapp.com/client/
+          </a>
+          <div><img alt="Load address above" src="img/ClientLinkQR.png" /></div>
+          <div style="margin-top: 5%">Connected clients: <span id="clientsNum">0</span></div>
+        </section>
+        <!--------------- AMPLITUDES ------------------>
+        <section>
+          <section>
+            <h3>Amplitude probabilites model</h3>
+          </section>
+          <section>
+            <h3>Amplitude probabilites model</h3>
+            <table>
+              <tr>
+                <td>
+                  <img src="img/qunatumComputing2/probTree0.png" />
+                </td>
+                <td>
+                  <img src="img/qunatumComputing2/probTree1.png" />
+                </td>
+              </tr>
+            </table>
+          </section>
+          <section>
+            <h3>Amplitude probabilites model</h3>
+            <br />
+            <table>
+              <tr>
+                <td>
+                  <img src="img/qunatumComputing2/probtree3.gif" />
+                </td>
+                <td>
+                  <img src="img/qunatumComputing2/probtree4.gif" />
+                </td>
+              </tr>
+            </table>
+          </section>
+          <section>
+            <h3>Amplitude probabilites model</h3>
+            <br />
+            <img style="height: 45vh" src="img/qunatumComputing2/proTreeResClasic.png" />
+          </section>
+          <section>
+            <h3>Amplitude probabilites model</h3>
+            <br />
+            <table>
+              <tr>
+                <td>
+                  <img src="img/qunatumComputing2/proTreeResQuntum0.png" />
+                </td>
+                <td>
+                  <img src="img/qunatumComputing2/proTreeRes1.png" />
+                </td>
+              </tr>
+            </table>
+          </section>
+          <section>
+            <h3>Amplitude probabilites model</h3>
+            <br />
+            <table>
+              <tr>
+                <td>
+                  <img src="img/qunatumComputing2/proTreeResQuntum2.png" />
+                </td>
+                <td>
+                  <img src="img/qunatumComputing2/proTreeResQuntum3.png" />
+                </td>
+              </tr>
+            </table>
+          </section>
+          <section>
+            <h3>Amplitude probabilites model</h3>
+            <table>
+              <tr>
+                <td>
+                  <img src="img/qunatumComputing2/proTreeApl0.png" />
+                </td>
+                <td>
+                  <img src="img/qunatumComputing2/proTreeApl1.png" />
+                </td>
+              </tr>
+            </table>
+          </section>
+          <section>
+            <h3>Amplitude probabilites model</h3>
+            <br />
+            <table>
+              <tr>
+                <td>
+                  <img src="img/qunatumComputing2/proTreeApl3.gif" />
+                </td>
+                <td>
+                  <img src="img/qunatumComputing2/proTreeAmpl4.gif" />
+                </td>
+              </tr>
+            </table>
+          </section>
+        </section>
+        <!--------------- QUANTUM BITS ----------------->
+        <section>
+          <section>
+            <h3>Quantum bits</h3>
+          </section>
+          <section>
+            <h3>Quantum bits</h3>
+            <img src="img/qbit.gif" />
+            <ul>
+              <li>Every particle with property following laws of Quantum mechanics</li>
+              <li>Usually realised using spin of elecron and nucleus controlled by magnetic waves</li>
+            </ul>
+          </section>
+          <section>
+            <h3>Classical vs quantum bit</h3>
+            <table>
+              <tr>
+                <td>
+                  Classical bit<br />
+                  <ul>
+                    <li class="fragment fade-up" data-fragment-index="1">Input:&nbsp;{0,1}</li>
+                    <li class="fragment fade-up" data-fragment-index="3">Output:&nbsp;{0,1}</li>
+                    <li class="fragment fade-up" data-fragment-index="5">States:&nbsp;{0,1}</li>
+                  </ul>
+                </td>
+                <td>
+                  Quantum bits<br />
+                  <ul>
+                    <li class="fragment fade-up" data-fragment-index="2">Input:&nbsp;{0,1}</li>
+                    <li class="fragment fade-up" data-fragment-index="4">Output:&nbsp;{0,1}</li>
+                    <li class="fragment fade-up" data-fragment-index="6">States:&nbsp;Superposition of 0 and 1</li>
+                  </ul>
+                </td>
+              </tr>
+            </table>
+            <img src="img/qbitStates.png" />
+          </section>
+        </section>
+        <!--------------- WHAT ARE QUANTUM COMPUTERS --------------->
+        <section>
+          <section>
+            <h3>What are quantum computers?</h3>
+          </section>
+          <section>
+            <h5>When to use quantum computers?</h5>
+            <ul>
+              <li>Determine global property of a function</li>
+              <li>Solving quantum problems and simulating quantum systems</li>
+            </ul>
+          </section>
+          <section>
+            <h5>Complexity classes with quantum computers</h5>
+            <img style="height: 50vh" src="img/quantumComplexity.png" />
+          </section>
+        </section>
+        <!--------------- REPRESENTING GUANTUM BITS ----------------->
+        <section>
+          <section>
+            <h3>Representing quantum bits</h3>
+          </section>
+          <section data-transition="slide-in none-out">
+            <h5>State vectors</h5>
+            <img src="img/qunatumComputing2/carNormal.png" />
+          </section>
+          <section data-transition="slide-out none-in">
+            <h5>State vectors</h5>
+            <img src="img/qunatumComputing2/carStateVector.png" />
+          </section>
+          <section>
+            <h5>Representing qbits as state vectors</h5>
+            <br /><br />
+            <table>
+              <tr>
+                <td colspan="3" style="text-align: center">
+                  &#10072;q&#10093; = \(\begin{pmatrix}a \\\ b\end{pmatrix}, |a|^2 + |b|^2 = 1\)
+                </td>
+              </tr>
+              <tr>
+                <td>&#10072;0&#10093; = \(\begin{pmatrix}1 \\\ 0\end{pmatrix}\)</td>
+                <td>&#10072;1&#10093; = \(\begin{pmatrix}0 \\\ 1\end{pmatrix}\)</td>
+                <td>&#10072;q&#10093; = \(\begin{pmatrix}\frac{1}{\sqrt{2}} \\\ \frac{1}{\sqrt{2}}\end{pmatrix}\)</td>
+              </tr>
+            </table>
+          </section>
+          <section>
+            <h5>Tensor product</h5>
+            \(\begin{pmatrix} a \\\ b \end{pmatrix} \otimes \begin{pmatrix}c \\\ d\end{pmatrix}=\begin{pmatrix}a \cdot
+            \begin{pmatrix} c \\\ d \end{pmatrix} \\\ b \cdot \begin{pmatrix}c \\\
+            d\end{pmatrix}\end{pmatrix}\)=\begin{pmatrix}ac \\\ ad \\\ bc \\\ bd \end{pmatrix}
+          </section>
+          <section>
+            <h5>Representing multiple qbits as state vectors</h5>
+            \(&#10072;q_0q_1&#10093; = \begin{pmatrix}a \\\ b \\\ c \\\ d\end{pmatrix}\), |a|^2 + |b|^2 + |c|^2 + |d|^2 = 1\)
+            <br />
+            <br />
+            \(&#10072;q_0q_1&#10093; = &#10072;q_0&#10093; \otimes &#10072;q_1&#10093; \)
+          </section>
+          <section>
+            <h5>Sum of the base states</h5>
+            <br />
+            \(&#10072;q_0q_1&#10093; = \begin{pmatrix}a \\\ b \\\ c \\\ d\end{pmatrix} = a&#10072;00&#10093; +
+            b&#10072;01&#10093; + c&#10072;10&#10093; + d&#10072;11&#10093;\)
+            <br />
+            <br />
+            \(&#10072;q&#10093; = \frac{1}{\sqrt{2}} &#10072;0001&#10093; + \frac{1}{\sqrt{2}} &#10072;0110&#10093;\)
+            <br />
+            <br />
+            \(&#10072;q&#10093; = \frac{1}{\sqrt{2^n}}\sum\limits_{x \in \{0,1\}^n}\) &#10072;x&#10093;
+          </section>
+          <section>
+            <h5>The Bloch sphere</h5>
+            <img src="img/qunatumComputing2/blochSphere.png" />
+          </section>
+        </section>
+        <!--------------- SINGLE QBIT GATES ----------------->
+        <section>
+          <section>
+            <h3>Single qbit gates</h3>
+          </section>
+          <section>
+            <h3>Single qbit gates</h3>
+            <img src="img/qunatumComputing2/simpleQuantumCrcuit.png" />
+            <br />
+            <ul>
+              <li>Represented as square Matrix, application using Matrix-Vector multiplication</li>
+              <li>All operations must be reversible and deterministic</li>
+            </ul>
+          </section>
+          <section>
+            <h3>X Gate</h3>
+            <br />
+            \(X = \begin{pmatrix}0&1\\1&0\end{pmatrix}\)
+            <br />
+            <br />
+            \(X &#10072;0&#10093; = \begin{pmatrix}0&1\\1&0\end{pmatrix} \begin{pmatrix} 1 \\ 0 \end{pmatrix} = \begin{pmatrix}
+            0 \\ 1 \end{pmatrix} = &#10072;1&#10093;\)
+            <br />
+            \(X &#10072;q&#10093; = \begin{pmatrix}0&1\\1&0\end{pmatrix} \begin{pmatrix} a \\ b \end{pmatrix} = \begin{pmatrix}
+            b \\ a \end{pmatrix}\)
+          </section>
+          <section>
+            <h3>Hadrmand gate</h3>
+
+            \(H = \begin{pmatrix}\frac{1}{\sqrt{2}}&\frac{1}{\sqrt{2}}\\\frac{1}{\sqrt{2}}&-\frac{1}{\sqrt{2}}\end{pmatrix} =
+            \frac{1}{\sqrt{2}} \cdot \begin{pmatrix}1&1\\1&-1\end{pmatrix}\)
+
+            <br />
+            <br />
+            \(H &#10072;0&#10093; = \frac{1}{\sqrt{2}} \cdot \begin{pmatrix}1&1\\1&-1\end{pmatrix}\begin{pmatrix} 1 \\ 0
+            \end{pmatrix} = \begin{pmatrix} \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \end{pmatrix} = &#10072;+&#10093;\)
+            <br />
+            \(H &#10072;1&#10093; = \frac{1}{\sqrt{2}} \cdot \begin{pmatrix}1&1\\1&-1\end{pmatrix}\begin{pmatrix} 0 \\ 1
+            \end{pmatrix} = \begin{pmatrix} \frac{1}{\sqrt{2}} \\ - \frac{1}{\sqrt{2}} \end{pmatrix} = &#10072;-&#10093;\)
+          </section>
+          <!-- TODO blotch sphere visualisation-->
+          <!-- TODO other gates in case of time -->
+        </section>
+        <!--------------- QBIT MEASUREMENT ----------------->
+        <section>
+          <h3>Qbit measurement</h3>
+        </section>
+        <!--------------- MULTIPLE QBIT GATES AND QUANTUM ENTAGLEMENT ----------------->
+        <section>
+          <section>
+            <h3>Multiple qbit gates and quantum entaglement</h3>
+          </section>
+          <section>
+            <h3>CX Gate</h3>
+            <br />
+            \(CX = \begin{pmatrix}1&0&0&0\\0&0&0&1\\0&0&1&0\\0&1&0&0\end{pmatrix}\)
+            <br />
+            <br />
+            <img src="img/qunatumComputing2/cxGate.png" />
+          </section>
+          <section>
+            <h3>CX Gate</h3>
+            <br />
+            \( CX &#10072;q&#10093; =
+            \begin{pmatrix}1&0&0&0\\0&0&0&1\\0&0&1&0\\0&1&0&0\end{pmatrix}\begin{pmatrix}a\\b\\c\\d\end{pmatrix} =
+            \begin{pmatrix}a\\d\\c\\b\end{pmatrix}\)
+          </section>
+          <section>
+            <h3>Quantum entaglement</h3>
+            <img src="img/qunatumComputing2/entaglementCircuit.png" />
+            <br />
+            \( CX &#10072;0+&#10093; =\begin{pmatrix}1&0&0&0\\0&0&0&1\\0&0&1&0\\0&1&0&0\end{pmatrix} \cdot \frac{1}{\sqrt{2}}
+            \begin{pmatrix}1\\1\\0\\0\end{pmatrix} = \frac{1}{\sqrt{2}} \begin{pmatrix}1\\0\\0\\1\end{pmatrix}\)
+          </section>
+        </section>
+        <!--------------- QUANTUM TELEPORTATION ----------------->
+        <section>
+          <section>
+            <h3>Quantum teleportation</h3>
+          </section>
+        </section>
+        <!--------------- DEUTSCH-JOSZA PROBLEM ---------------->
+        <section>
+          <section>
+            <h3>Deutsch josza problem</h3>
+          </section>
+          <section>
+            <h5>Problem statement</h5>
+            <p style="text-align: justify">
+              We are given a hidden Boolean function \(f\) , which takes as input a string of bits, and returns either 0 or 1 ,
+              that is:
+              <br /><br />\(f({x_0,x_1,x_2,...}) \rightarrow 0 / 1\), where \(x_n\) is 0 or 1.<br /><br />
+              It is guaranteed that \(f\) is either balanced or constant. Our task is to determine whether the given function is
+              balanced or constant.
+            </p>
+          </section>
+          <section>
+            <h5>Classical solution</h5>
+            <p style="text-align: justify">
+              We are trying different \(x\) as inputs of \(f(x)\) untli we get different reults (\(f\) is ballanced) or until we
+              try more than half of the inputs (\(f\) is constant).
+            </p>
+            <ul>
+              <li>Bestcase: 2 calls of \(f(x)\)</li>
+              <li>Worstcase: \(2^{n-1} + 1\) calls of \(f(x)\)</li>
+              <li>Average/Expected case: \(\mathcal{O}(2^n)\) calls of \(f(x)\)</li>
+            </ul>
+          </section>
+          <section>
+            <h5>Quantum solution</h5>
+            <br />
+            <img src="img/qunatumComputing2/deutschJosza.png" />
+            <br /><br />
+            If result is &#10072;000...0&#10093; than \(f(x)\) is constant else \(f(x)\) is balanced
+          </section>
+          <section>
+            <h5>Quantum solution - step by step</h5>
+            <br /><br />
+            1. Init first \(n\) qubits as &#10072;0&#10093; and last one qbit as &#10072;1&#10093; and apply H gate to the all
+            of them.<br />\( &#10072;q_1&#10093; = \frac{1}{\sqrt{2^{n+1}}} \cdot \sum\limits_{x = 0}^{2^{n -
+            1}}&#10072;x&#10093;(&#10072;0&#10093; - &#10072;1&#10093;) = \frac{1}{\sqrt{2^{n + 1}}} \begin{pmatrix}1\\ \dots \\
+            1 \\ -1 \\ \dots \\ -1 \end{pmatrix} \)
+          </section>
+          <section>
+            <h5>Quantum solution - step by step</h5>
+            <br />
+            2. Apply \(f(x)\) to the qbits. Some math magic happens and following is true:
+            <ul>
+              <li>If \(f(x)\) is 0-constant, qbits will be unchanged (&#10072;\(q_1\)&#10093; = &#10072;\(q_2\)&#10093;)</li>
+              <li>
+                If \(f(x)\) is 1-constant, all states will ahve different sign (&#10072;\(q_1\)&#10093; =
+                -&#10072;\(q_2\)&#10093;)
+              </li>
+              <li>If \(f(x)\) is ballanced, exactly one half of states in the statevector have diffenrent sign</li>
+            </ul>
+          </section>
+          <section>
+            <h5>Quantum solution - step by step</h5>
+            <br />
+            3. Apply H gate to first n qbits and measure.<br /><br />
+            If \(f(x)\) is constant 0:<br /><br />
+            \(f(x)\) does not affect any qbit -> circuit on each qbit is equivalent to circuit that applyes 2 H gates, so we get
+            same result as at the start ( &#10072;00..0&#10093;)
+          </section>
+          <section>
+            <h5>Quantum solution - step by step</h5>
+            <br />
+            If \(f(x)\) is constant 1:<br /><br />
+            &#10072;q_3&#10093; = -&#10072;q_2&#10093;. H&#10072;q_3&#10093; = -H&#10072;q_2&#10093;. In case of constant 0, we
+            showed that H&#10072;q_2&#10093; = &#10072;0&#10093;, so H&#10072;q_3&#10093; = -&#10072;0&#10093;
+          </section>
+          <section>
+            <h5>Quantum solution - step by step</h5>
+            <br />
+            If \(f(x)\) is constant 1:<br /><br />
+            &#10072;q_3&#10093; has exactly one half of the states with negative sign -> \(&#10072;q_3&#10093; \cdot
+            &#10072;q_2&#10093; = 0\), so &#10072;q_3&#10093; is orthogonal to &#10072;q_2&#10093;. That means that
+            H&#10072;q_3&#10093; is orthogonal to H&#10072;q_2&#10093; = &#10072;0&#10093;, so the probability of measuring
+            &#10072;0&#10093; is 0.
+          </section>
+        </section>
+        <!--------------- SIMONS ALGORITHM ---------------------->
+        <section>
+          <section>
+            <h3>Simons algorithm</h3>
+          </section>
+        </section>
+        <!--------------- SHOR'S ALGORITHM ---------------------->
+        <section>
+          <section>
+            <h3>Shor's algorithm</h3>
+          </section>
+        </section>
+        <!--------------- GRAVITY SORT -------------------------->
+        <section>
+          <section>
+            <h3>Gravity sort</h3>
+          </section>
+        </section>
+      </div>
+    </div>
+
+    <!--------------------------------------------------END OF PRESENTATION----------------------------------------------------------->
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default"></script>
+    <script src="js/reveal.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/base.js"></script>
+
+    <script>
+      Reveal.initialize({
+        dependencies: [
+          {
+            src: "plugin/markdown/marked.js",
+          },
+          {
+            src: "plugin/markdown/markdown.js",
+          },
+          {
+            src: "plugin/notes/notes.js",
+            async: true,
+          },
+          {
+            src: "plugin/highlight/highlight.js",
+            async: true,
+            callback: function () {
+              hljs.initHighlightingOnLoad();
+            },
+          },
+        ],
+      });
+    </script>
+  </body>
+</html>
