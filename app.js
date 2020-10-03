@@ -4,7 +4,7 @@ const http = require("http").Server(app);
 
 app.use(express.static("static"));
 
-let PORT = process.env.PORT || 3000;
+let PORT = process.env.PORT || 9000;
 let clientsNum = 0;
 
 app.get("/", function (req, res) {

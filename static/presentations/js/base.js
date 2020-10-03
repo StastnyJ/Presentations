@@ -30,7 +30,7 @@ function hideQuestions() {
   document.getElementById("questionCount").innerText = Object.keys(questions).length;
 }
 
-client = new Paho.MQTT.Client("159.89.4.84", 9001, "presentation" + Math.floor(Math.random() * 1000));
+client = new Paho.MQTT.Client("stastnyj.duckdns.org", 9001, "presentation" + Math.floor(Math.random() * 1000));
 client.onConnectionLost = () => console.log("CONNECTION LOST");
 
 client.onMessageArrived = (msg) => {
@@ -42,14 +42,16 @@ client.onMessageArrived = (msg) => {
     const outMessge = new Paho.MQTT.Message(`questionsInformation/${JSON.stringify(questions)}`);
     outMessge.destinationName = "remote";
     client.send(outMessge);
-  }
+  } else if (message.startsWith("reaction")) handleReaction(message.replace("reaction/", ""));
+  else if (message.startsWith("question")) addQuestion(message.replace("question/", ""));
+  else if (message.startsWith("removeQuestion")) removeQuestion(parseInt(message.replace("removeQuestion/", "")));
 };
 
 client.connect({
   onSuccess: () => {
-    console.log("CONNECTED");
     client.subscribe("presentation");
   },
+  useSSL: true,
 });
 
 const handleMove = (move) => {
@@ -69,36 +71,38 @@ const handleMove = (move) => {
   }
 };
 
+const handleReaction = (reaction) => {
+  if (!(reaction in reactions)) reactions[reaction] = 0;
+  reactions[reaction]++;
+  setTimeout(() => {
+    reactions[reaction]--;
+    repaintReactions();
+  }, 10000);
+  repaintReactions();
+};
+
+const addQuestion = (q) => {
+  qId = q.split(";")[0];
+  question = q.substring(qId.length + 1);
+  questions[qId] = question;
+  var popup = document.getElementById("questionPopup");
+  popup.innerText = question;
+  popup.classList.add("show");
+  document.getElementById("questionCount").innerText = Object.keys(questions).length;
+  document.getElementById("questionsList").insertAdjacentHTML("beforeend", '<li qid="' + qId + '">' + question + "</li>");
+  setTimeout(() => {
+    popup.classList.remove("show");
+  }, 5000);
+};
+
+const removeQuestion = (id) => {
+  try {
+    delete questions[id];
+    document.getElementById("questionCount").innerText = Object.keys(questions).length;
+    document.querySelector('li[qid="' + id + '"]').remove();
+  } catch {}
+};
+
 // socket.on("clientNumberChanged", (num) => {
 //   document.querySelector("#clientsNum").textContent = num;
-// });
-
-// socket.on("reaction", (reaction) => {
-//   if (!(reaction in reactions)) reactions[reaction] = 0;
-//   reactions[reaction]++;
-//   setTimeout(() => {
-//     reactions[reaction]--;
-//     repaintReactions();
-//   }, 10000);
-//   repaintReactions();
-// });
-
-// socket.on("question", (q) => {
-//   qId = q.split(";")[0];
-//   question = q.substring(qId.length + 1);
-//   questions[qId] = question;
-//   var popup = document.getElementById("questionPopup");
-//   popup.innerText = question;
-//   popup.classList.add("show");
-//   document.getElementById("questionCount").innerText = Object.keys(questions).length;
-//   document.getElementById("questionsList").insertAdjacentHTML("beforeend", '<li qid="' + qId + '">' + question + "</li>");
-//   setTimeout(() => {
-//     popup.classList.remove("show");
-//   }, 5000);
-// });
-
-// socket.on("removeQuestion", (id) => {
-//   delete questions[id];
-//   document.getElementById("questionCount").innerText = Object.keys(questions).length;
-//   document.querySelector('li[qid="' + id + '"]').remove();
 // });
